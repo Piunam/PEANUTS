@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+<link rel="stylesheet" href="{% static 'cloud.css' %}">
+<link rel="stylesheet" href="{% static 'cursor.css' %}">
+<script src="{% static 'js/matchmaking.js' %}"></script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap');
+
+    .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    .popup-content {
+        background-color: #16002C;
+        border: 2px solid #ffdf00;
+        padding: 20px;
+        color: #ffdf00;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 28px;
+        font-family: "Handjet", sans-serif;
+    }
+    .popup-content-Vs{
+        background-color: #16002C;
+        border: 2px solid #ffdf00;
+        padding: 20px;
+        color: #ffdf00;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 58px;
+        width: 600px;
+        height: 500px;
+        font-family: "Handjet", sans-serif;
+    }
+    .a_about{
+        color: white;
+        text-decoration: none;
+        transition: 0.2s ease-in-out;
+    }
+    .a_about:hover{
+        color: #ff235a;
+    }
+</style>
+<div id="background-wrap">
+    <div class="x1">
+        <div class="cloud"></div>
+    </div>
+
+    <div class="x2">
+        <div class="cloud"></div>
+    </div>
+
+    <div class="x3">
+        <div class="cloud"></div>
+    </div>
+
+    <div class="x4">
+        <div class="cloud"></div>
+    </div>
+
+    <div class="x5">
+        <div class="cloud"></div>
+    </div>
+</div>
+
+<div class="_3d-pixel-cursor__arrow">
+
+    <header>
+        <div class="logo">
+            Peanuts
+            <img class="logo_img" width="70px" src="{% static 'assets/peanut.png' %}" alt="">
+        </div>
+
+        <nav>
+            <ul class="main_nav">
+                <li><a href="{% url 'home' %}" class="_3d-pixel-cursor__pointer">Home</a></li>
+                <li><a href="{% url 'community_page' %}" class="_3d-pixel-cursor__pointer">Community</a></li>
+                <li><a href="{% url 'store' %}" class="_3d-pixel-cursor__pointer">Store</a></li>
+            </ul>
+        </nav>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                <li><a class="_3d-pixel-cursor__pointer" href="{% url 'profile' %}">
+                        <img src="{% static 'assets/profile.png' %}" class="profile_img" alt="">
+                        <!-- <img src="{% if user.profile.image %}{{ user.profile.image.url }}{% else %}{% static 'assets/default.jpg' %}{% endif %}" class="profile_img" alt="Profile Picture"> -->
+                    </a></li>
+                <li>
+                    <!-- Logout Form -->
+                    <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="sign-up"
+                            style="background:none;border:none;color:#ffffff;cursor:pointer;">Logout</button>
+                    </form>
+                </li>
+                {% else %}
+                <li><a class="sign-up _3d-pixel-cursor__pointer" href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+
+    <!-- Display the player's rank -->
+
+    <main>
+
+        <section class="search-section">
+            <input type="text" placeholder="Search Here" class="search-bar">
+            <button class="search-button _3d-pixel-cursor__pointer">Search</button>
+        </section>
+
+        <section class="buttons-section">
+            <button class="scoreboard-button _3d-pixel-cursor__pointer"> <a href="{% url 'aboutus' %}">About Us</a></button>
+            <button class="scoreboard-button _3d-pixel-cursor__pointer">Scoreboard</button>
+            <button class="scoreboard-button _3d-pixel-cursor__pointer"> <a class="a_about" href="{% url 'aboutus' %}">About Us</a></button>
+            <button id="quick-match-button" class="quick-play-button _3d-pixel-cursor__pointer">Quick Play</button>
+            
+            <div id="waiting-popup" class="popup" style="display: none;">
+                <div class="popup-content">
+                    <p id="status-text">Waiting for player...</p>
+                </div>
+            </div>
+
+            <style>
+                .popup {
+                    display: none;  /* Hides the popup initially */
+                    position: fixed;
+                    z-index: 1000;
+                    left: 0;
+                    top: 0;
+                   
+                    width: 100%;
+                    /* height: 100%; */
+                    justify-content: center;
+                    align-items: center;
+                }
+                .popup-content {
+                    background-color: #16002C;
+                    padding: 20px;
+                    border-radius: 10px;
+                    text-align: center;
+                    width: 300px;
+                    margin-bottom: 300px;
+                }
+                .close {
+                    color: #aaa;
+                    float: right;
+                    font-size: 28px;
+                    font-weight: bold;
+                }
+                .close:hover,
+                .close:focus {
+                    color: black;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+                .points{
+                    color: white !important;
+                }
+                .Job{
+                    display: flex;
+                }
+                .job-section{
+                    background-color: #2f2f2f;
+                    padding: 8px;
+                    border: 1px solid #ffdf00;
+                    border-radius: 9px;
+                }
+                .head{
+                    font-size: 30px;
+                    color: #ff1f5b;
+                    /* text-shadow: 1px 1px 0px white; */
+                }
+            </style>
+        </head>
+        <body>
+                <button id="scoreboardButton">Scoreboard</button>
+        
+            <!-- Scoreboard Pop-up -->
+            <div id="scoreboardPopup" class="popup">
+                <div class="popup-content">
+                    <span class="close">&times;</span>
+                    <h2>Player Scores</h2>
+                    <p>Player 1: <span class="points"> 50 points</span></p>
+                    <p>Player 2: <span class="points"> 40 points</span></p>
+                    <p>Player 3: <span class="points"> 60 points</span></p>
+                    <p>Player 4: <span class="points"> 45 points</span></p>
+                </div>
+            </div>
+        
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var scoreboardButton = document.getElementById('scoreboardButton');
+                    var scoreboardPopup = document.getElementById('scoreboardPopup');
+                    var closeButton = document.querySelector('.close');
+        
+                    scoreboardButton.addEventListener('click', function () {
+                        scoreboardPopup.style.display = 'flex';
+                    });
+        
+                    closeButton.addEventListener('click', function () {
+                        scoreboardPopup.style.display = 'none';
+                    });
+        
+                    window.addEventListener('click', function (event) {
+                        if (event.target === scoreboardPopup) {
+                            scoreboardPopup.style.display = 'none';
+                        }
+                    });
+                });
+            </script>
+        </body>
+        </html>
+            <div id="match-found-popup" class="popup" style="display: none;">
+                <div class="popup-content">
+
+                    <p>Match Found!</p>
+                </div>
+            </div>
+            <div id="vs-screen-popup" class="popup" style="display: none;">
+                <div class="popup-content-Vs">
+                    <p id="player1-name">Player 1</p>
+                    <h3>Vs</h3>
+                    <p id="player2-name">Player 2</p>
+                </div>
+            </div>
+
+            <button id="start-match-button" class="online-match-button _3d-pixel-cursor__pointer">Online Match</button>
+            <p id="status-text"></p>
+        </section>
+
+        <section class="main-content">
+            <div class="upcoming-events">
+                <h3 class="head">Available Jobs </h3>
+                <div class="job-section">
+                  <div class="cont">
+                  <div class="Job">
+                    <img src="{% static 'assets/Google.png' %}" width="60px" alt="">
+                    <h2>Google</h2>
+                  </div>
+                  <p>Google is seeking a skilled Data Analyst to join our dynamic team. You'll analyze complex datasets, generate actionable insights, and collaborate across departments to drive data-driven decisions. Strong analytical skills and experience with statistical tools are essential.
+                    Package: ₹1.2 Cr.</p>
+                </div>
+                
+                </div>
+            </div>
+
+            <div class="player-stats">
+                <h4 class="text-center">Welcome, {{ user.username }}</h4>
+                <h2>Player Stats</h2>
+                <p>Problems Solved:</p>
+                <p>Rank: {{ player.rank }}</p>
+                <p>Level: 1</p>
+                <p>Badge: </p>
+            </div>
+
+            <div class="character">
+
+            </div>
+        </section>
+        <img src="https://media.tenor.com/TGVhV3buACUAAAAi/danganronpa-v3.gif" width="170px" alt=""
+            style="position: relative; left: 1000px; bottom: 90px; ">
+
+    </main>
+</div>
+
+
+{% endblock %}

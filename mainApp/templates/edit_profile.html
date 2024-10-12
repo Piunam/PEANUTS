@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap');
+
+        .container{
+            padding: 15px;
+            background-color: rgb(34, 34, 34);
+            border: 2px solid #ffdf00;
+            border-radius: 12px ;
+            width: 30%;
+            margin: 30px;
+        }
+        .container>h1{
+            color: #ffdf00;
+            font-family: "Handjet", sans-serif;
+            font-size: 60px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            Peanuts
+            <img class="logo_img" width="70px" src="{% static 'assets/peanut.png' %}" alt="">
+            
+        </div>
+
+        <nav>
+            <ul class="main_nav">
+                <li><a href="{% url 'home' %}" class="_3d-pixel-cursor__pointer">Home</a></li>
+                <li><a href="{% url 'profile' %}" class="_3d-pixel-cursor__pointer">Profile</a></li>
+                <li><a href="{% url 'logout' %}" class="_3d-pixel-cursor__pointer">Logout</a></li>
+            </ul>
+        </nav>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                <!-- Logout Form -->
+                <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="sign-up"
+                        style="background:none;border:none;color:#ffffff;cursor:pointer;">Logout</button>
+                </form>
+                </li>
+                {% else %}
+                <li><a class="sign-up _3d-pixel-cursor__pointer" href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Edit Your Profile</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }} <!-- Renders the form fields with paragraph tags -->
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </main>
+</body>
+</html>
+
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'profile' %}">Profile</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Edit Your Profile</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }} <!-- Renders the form fields with paragraph tags -->
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </main>
+</body>
+</html> {% endcomment %}

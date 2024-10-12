@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs/loader.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #000000;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+
+        .main-content {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .question-section {
+            width: 40%;
+            height: 72vh;
+            border: 2px solid #ffdf00;
+            border-radius: 14px;
+            padding: 20px;
+            background-color: #1F1F1F;
+            overflow-y: auto;
+            border-right: 1px solid #ccc;
+        }
+
+        .editor-section {
+            width: 59%;
+            margin-left: 18px;
+            padding: 10px;
+            background-color: #070707;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid #ffdf00;
+            border-radius: 14px;
+        }
+
+        #code-editor {
+            height: 40vh;
+            border: 1px solid #ccc;
+            background-color: rgb(0, 0, 0);
+        }
+
+        #run-code-button {
+            padding: 5px;
+            width: 150px;
+            height: 40px;
+            margin-top: 20px;
+            box-shadow: 3px 3px 0px white;
+            background-color: #ffdf00;
+            color: rgb(13, 13, 13);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+        }
+
+        #run-code-button:hover {
+            background-color: #000000;
+            color: #ffdf00;
+            box-shadow: 3px 3px 0px #ffdf00;
+            border: 1px solid #ffdf00;
+        }
+
+        #submit-code-button {
+            padding: 5px;
+            width: 150px;
+            height: 40px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+        }
+
+        #submit-code-button:hover {
+            background-color: #0056b3;
+        }
+
+        #output {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #0b0b0b;
+            color: #d4d4d4;
+            border: 1px solid #d4d4d4;
+            height: 100px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+
+        .output-text {
+            color: #ffdf00;
+        }
+
+        .form-select {
+            margin-bottom: 10px;
+            margin: 20px;
+            background-color: #000000;
+            color: #ffdf00;
+        }
+
+        .question {
+            font-weight: 800;
+            font-size: 40px;
+            font-family: "Handjet", sans-serif;
+        }
+
+        #timer {
+            background-color: #ffdf00;
+            font-size: 35px;
+            color: #000000;
+            border: 1px solid #ffffff;
+            width: 16%;
+            font-weight: 800;
+            font-family: "Handjet", sans-serif;
+            border-radius: 13px;
+            padding: 8px;
+        }
+
+        #custom-timer-button {
+            margin-top: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 10px;
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+        }
+
+        #custom-timer-button:hover {
+            background-color: #218838;
+        }
+
+        #custom-timer-input {
+            width: 80px;
+            margin-left: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            color: #000;
+        }
+
+        .timer-section {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+    {% load static %}
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            Peanuts
+            <img class="logo_img" width="70px" src="{% static 'assets/peanut.png' %}" alt="">
+        </div>
+        <nav>
+        </nav>
+    </header>
+    <main class="main-content">
+        <section class="question-section">
+            <div class="timer-section">
+                <h2 class="question" id="question-title">Loading Question...</h2>
+                <div id="timer">Loading...</div>
+                <button id="custom-timer-button">Set Timer</button>
+                <input type="text" id="custom-timer-input" placeholder="Seconds">
+            </div>
+            <p id="question-difficulty">Difficulty: </p>
+            <div id="question-content">
+                <!-- Question will be loaded here -->
+            </div>
+            <input type="hidden" id="question-id" value="{{ question.id }}">
+        </section>
+        <section class="editor-section">
+            <div class="d-flex justify-content-between searchbar">
+                <select class="form-select" id="language-select">
+                    <option value="javascript" selected>JavaScript</option>
+                    <option value="python">Python</option>
+                    <option value="java">Java</option>
+                    <option value="cpp">C++</option>
+                </select>
+                <button id="run-code-button" onclick="submitCode()">Run Code</button>
+                <button id="submit-code-button" onclick="submitCode()">Submit Code</button>
+            </div>
+            <div id="code-editor"></div>
+            <div class="mt-2">
+                <label for="output" class="output-text">Output</label>
+                <pre id="output"></pre>
+            </div>
+        </section>
+    </main>
+    <script>
+        // JavaScript code here
+
+        const questions = {
+            // Your question data
+        };
+
+        function getExpectedOutput(questionId) {
+            const question = questions[questionId.difficulty][0];
+            const examples = question.examples;
+            const expectedOutputs = examples.map(example => example.output);
+            return expectedOutputs;
+        }
+
+        function loadQuestion(difficulty) {
+            const question = questions[difficulty][0];
+            document.getElementById('question-title').innerText = question.title;
+            document.getElementById('question-difficulty').innerText = `Difficulty: ${question.difficulty}`;
+            document.getElementById('question-content').innerHTML = `<p>${question.description}</p><pre>${question.examples.map(example => example.input + "\n" + example.output).join('\n\n')}</pre>`;
+
+            let timeLimit;
+            switch (difficulty) {
+                case 'easy':
+                    timeLimit = 20 * 60;
+                    break;
+                case 'medium':
+                    timeLimit = 40 * 60;
+                    break;
+                case 'hard':
+                    timeLimit = 60 * 60;
+                    break;
+                default:
+                    timeLimit = 20 * 60;
+            }
+
+            startTimer(timeLimit);
+        }
+
+        function startTimer(duration) {
+            const timerDisplay = document.getElementById('timer');
+            let time = duration;
+
+            const interval = setInterval(() => {
+                const minutes = Math.floor(time / 60);
+                const seconds = time % 60;
+                timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                time--;
+
+                if (time < 0) {
+                    clearInterval(interval);
+                    timerDisplay.textContent = "Time's up!";
+                    document.getElementById('run-code-button').disabled = true;
+                    document.getElementById('submit-code-button').disabled = true;
+                }
+            }, 1000);
+        }
+
+        document.getElementById('custom-timer-button').addEventListener('click', () => {
+            const customTime = parseInt(document.getElementById('custom-timer-input').value, 10);
+            if (!isNaN(customTime) && customTime > 0) {
+                startTimer(customTime);
+            } else {
+                alert('Please enter a valid number of seconds.');
+            }
+        });
+
+        loadQuestion('easy');
+
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs' } });
+        require(['vs/editor/editor.main'], function () {
+            var editor = monaco.editor.create(document.getElementById('code-editor'), {
+                value: `function twoSum(nums, target) {
+    // Implement your solution here
+    return []; // Change this to your return statement
+}`,
+                language: 'javascript',
+                theme: 'vs-dark',
+            });
+
+            document.getElementById('language-select').addEventListener('change', function () {
+                var lang = this.value;
+                monaco.editor.setModelLanguage(editor.getModel(), lang);
+            });
+
+            document.getElementById('run-code-button').addEventListener('click', function () {
+                var code = editor.getValue();
+                var lang = document.getElementById('language-select').value;
+
+                fetch('http://localhost:8000/compile/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code: code, lang: lang })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('output').textContent = data.output || 'Error occurred';
+
+                        const questionId = { difficulty: 'easy' };
+                        const expectedOutputs = getExpectedOutput(questionId);
+
+                        if (expectedOutputs.includes(data.output.trim())) {
+                            alert('Success');
+                        } else {
+                            alert('Failed');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        document.getElementById('output').textContent = 'Error occurred';
+                    });
+            });
+
+            document.getElementById('submit-code-button').addEventListener('click', function () {
+                let userCode = editor.getValue();
+                let questionId = { difficulty: 'easy' };
+                let expectedOutputs = getExpectedOutput(questionId);
+
+                fetch('/submit_code/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({
+                        'question_id': questionId,
+                        'user_code': userCode
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        let userOutput = data.output || 'Error occurred';
+                        if (expectedOutputs.includes(userOutput.trim())) {
+                            alert('Success');
+                        } else {
+                            alert('Failed');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error occurred');
+                    });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

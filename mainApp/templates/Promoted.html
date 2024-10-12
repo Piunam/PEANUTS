@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promotion</title>
+    {% load static %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap');
+
+        body {
+            background-color: #290042;
+            color: #ffdf00;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .head>h1 {
+            display: flex;
+            justify-content: center;
+            font-family: "Handjet", sans-serif;
+            font-size: 60px;
+        }
+
+        .winner {
+            font-size: 60px;
+            font-family: Arial, Helvetica, sans-serif;
+
+
+        }
+
+        .profile-image {
+            width: 250px;
+        }
+
+        .main {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 100px;
+            background-color: #150022;
+            padding: 18px;
+            border: 2px solid #ffdf00;
+            border-radius: 15px;
+
+        }
+
+        .text {
+            text-align: center;
+        }
+
+        .text>h3 {
+            font-size: 30px;
+        }
+
+        .ans {
+            color: white;
+        }
+
+        .rank {
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        .main-h{
+            border: 2px solid #ffdf00;
+            padding: 20px;
+            border-radius: 18px;
+            text-align: center;
+        }
+        .btn{
+            padding: 12px;
+            border: 2px solid #150022;
+            border-radius: 13px;
+            background-color: #ffdf00;
+            color: #150022;
+            margin: 40px;
+            margin-top: 40px;
+            width: 120px;
+            height: 50px;
+            font-weight: 700;
+            transition: 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .btn:hover{
+            background-color: #150022;
+            color: #ffdf00;
+            font-weight: 700;
+            border: 2px solid #ffdf00;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="head">
+            <h1>Congratulations! You have been promoted.</h1>
+        </div>
+        <div class="main-h">
+            <h2 class="winner">Winner !!</h2>
+            <div class="main">
+                <div class="content">
+                    <img class="profile-image" src="{% static 'assets/Profile.png' %}" alt="">
+                </div>
+                <div class="text">
+                    <h3>
+                        TWO SUM
+                    </h3>
+                    <div class="rank">
+                        <h1>RANK UPGRADE</h1>
+                        <h2>BRONZE - I to BRONZE - II</h2>
+                    </div>
+
+                </div>
+            </div>
+           
+        </div>
+        <a href="{% url 'home' %}" class="btn">Home</a>
+
+    </div>
+
+</body>
+
+</html>

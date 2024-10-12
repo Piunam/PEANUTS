@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <link rel="stylesheet" href="{% static 'cursor.css' %}"> <!-- Link to your CSS file -->
+    <style>
+        .main-container {
+            display: flex;
+        }
+
+        .left {
+            width: 30%;
+
+        }
+        .left>img{
+            padding: 20px;
+            margin-left: 40px;
+        }
+        .left>h2{
+            margin-left: 60px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 800;
+            font-size: 35px;
+        }
+
+        .right {
+            width: 70%;
+        }
+
+        .username {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bt-text {
+
+            margin: 4px;
+            align-items: center;
+            padding: 15px;
+            width: 200px;
+            height: 150px;
+            text-align: center;
+
+        }
+
+        .bt-text>h3 {
+            background: #ffdf00;
+            font-weight: 800;
+            ;
+            font-size: 25px;
+            border-radius: 12px;
+            padding: 10px;
+            color: black;
+            font-family: "Handjet", sans-serif;
+
+        }
+
+        .bt-text>p {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 500;
+        }
+
+        .upcoming-events {
+            width: 300px !important;
+        }
+        .inner{
+            display: flex;
+        }
+        .dam>h2 {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .wefkkdup{
+            background: #161616;
+            padding: 15px;
+            border: 2px solid #ffdf00;
+            width: 250px;
+            border-radius: 12px;
+        }
+        .flex>h4{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .links{
+            margin-left: 110px;
+        }
+        .Ranks{
+            background-color: #ffdf00;
+            padding: 15px;
+            border-radius: 12px;
+            width: 150px;
+            margin: 15px;
+            margin-left: 110px;
+            font-weight: 600;
+            font-size: 15px;
+            height: 50px;
+            box-shadow: 3px 3px 0px white;
+            border: 1px solid black;
+            transition: 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .Ranks:hover{
+            background-color: #ffffff;
+            color: #161616;
+            box-shadow: 3px 3px 0px #ffdf00;
+        }
+        .actions{
+            margin-left: 120px;
+            align-items: center;
+        }
+        .actions>h2{
+            padding: 15px;
+            font-size: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 700;
+        }
+        .btn{
+            background-color: #ffdf00;
+            padding: 14px;
+            border-radius: 12px;
+            border: 2px solid black;
+            text-decoration: none;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-left: 10px;
+            transition: 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .btn:hover{
+            background-color: #161616;
+            color: white;
+            border: 2px solid white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="_3d-pixel-cursor__arrow">
+        <header>
+            <div class="logo">
+                Peanuts
+                <img class="logo_img" width="70px" src="{% static 'assets/peanut.png' %}" alt="">
+                
+            </div>
+
+            <nav>
+                <ul class="main_nav">
+                    <li><a href="{% url 'home' %}" class="_3d-pixel-cursor__pointer">Home</a></li>
+                    <li><a href="{% url 'profile' %}" class="_3d-pixel-cursor__pointer">Profile</a></li>
+                    <li><a href="{% url 'logout' %}" class="_3d-pixel-cursor__pointer">Logout</a></li>
+                </ul>
+            </nav>
+            <nav>
+                <ul>
+                    {% if user.is_authenticated %}
+                    <!-- Logout Form -->
+                    <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="sign-up"
+                            style="background:none;border:none;color:#ffffff;cursor:pointer;">Logout</button>
+                    </form>
+                    </li>
+                    {% else %}
+                    <li><a class="sign-up _3d-pixel-cursor__pointer" href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+
+
+        <main class="main-container">
+            <div class="left">
+                <img src="{% static 'assets/profile.png' %}" width="250px" alt="">
+                <h2>@Keshxvdayal</h2>
+                <div class="flex links">
+                    <img src="{% static 'assets/Instagram.png' %}" width="50px" alt="">
+                    <img src="{% static 'assets/Github.png' %}" width="50px" alt="">
+                    <img src="{% static 'assets/Linkedin.png' %}" width="50px" alt="">
+                </div>
+                <button class="Ranks">RANKS</button>
+                <section class="actions">
+                    <h2>Actions</h2>
+                    <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+                    <li><a class="_3d-pixel-cursor__pointer" href="{% url 'profile' %}">
+                            <img src="{% if user.profile.image %}{{ user.profile.image.url }}{% else %}{% static 'assets/default.jpg' %}{% endif %}"
+                                class="profile_img" alt="Profile Picture">
+                        </a></li>
+
+                    <!-- Assuming you have an 'edit_profile' view to handle profile editing -->
+                </section>
+            </div>
+            <div class="right">
+                <img src="{% static 'assets/Profile-Section.png' %}" width="950px" alt="">
+
+                <h1 class="username">Welcome, {{ user.username }}!</h1>
+
+                <div class="stats">
+                    <div class="prblm_sol bt-text">
+                        <h3>1</h3>
+                        <p>PROBLEM SOLUTION</p>
+
+                    </div>
+                    <div class="rank bt-text">
+                        <h3> BRONZE - I </h3>
+                        <P>RANK</P>
+                    </div>
+                    <div class="level bt-text">
+                        <h3> 4 </h3>
+                        <P>LEVEL</P>
+                    </div>
+                    <div class="badges bt-text">
+                        <h3> N.A. </h3>
+                        <P>BADGES</P>
+                    </div>
+                </div>
+
+                <div class="inner">
+
+                    <section class="upcoming-events">
+                        <h2>Profile Details</h2>
+                        <p><strong>Username:</strong> {{ user.username }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>User Type:</strong> {{ user.user_type }}</p> <!-- Display user type -->
+                    </section>
+                    <section class="wefkkdup">
+                        <div class="dam">
+                            <h2>POSTS</h2>
+                            <div class="flex">
+                                <img src="{% static 'assets/profile.png' %}" width="30px" alt="">
+                                <h4>@Keshxvdayal</h4>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+               
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'index.css' %}"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="{% static 'community.css' %}"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="{% static 'cursor.css' %}"> <!-- Link to your CSS file -->
+</head>
+
+<body>
+    <div class="_3d-pixel-cursor__arrow">
+        <header>
+            <div class="logo">
+                Peanuts
+                <img class="logo_img" width="70px" src="{% static 'assets/peanut.png' %}" alt="">
+            </div>
+
+            <nav>
+                <ul class="main_nav">
+                    <li><a class="_3d-pixel-cursor__pointer" href="{% url 'home' %}">Home</a></li>
+                    <li><a class="_3d-pixel-cursor__pointer" href="{% url 'community_page' %}">Community</a></li>
+                    <li><a class="_3d-pixel-cursor__pointer" href="{% url 'store' %}">Store</a></li>
+                </ul>
+            </nav>
+            <nav>
+                <ul>
+                    {% if user.is_authenticated %}
+                    <li><a class="_3d-pixel-cursor__pointer" href="{% url 'profile' %}">
+                            <img src="{% static 'assets/profile.png' %}"
+                                style="position: absolute; right: 140px; top: 20px;" width="50px" alt="">
+                        </a></li>
+                    <li>
+                        <!-- Logout Form -->
+                        <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="sign-up _3d-pixel-cursor__pointer"
+                                style="background:none;border:none;color:#ffffff;cursor:pointer;">Logout</button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <li><a class="_3d-pixel-cursor__pointer" class="sign-up" href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+       
+        <div class="main">
+            <div class="sidebar">
+                <ul>
+                    <li><a href="{% url 'community_feed' %}" class="active _3d-pixel-cursor__pointer"><i class="lni lni-home"></i><span>FEED</span></a></li>
+                    <li><a href="{% url 'groups' %}" class=" _3d-pixel-cursor__pointer"><i class="lni lni-text-format"></i><span>GROUPS</span></a></li>
+                    <li><a href="{% url 'frandz' %}" class=" _3d-pixel-cursor__pointer"><i class="lni lni-bar-chart"></i><span>FRANDZ</span></a></li>
+                    <li><a href="{% url 'hackathons' %}" class=" _3d-pixel-cursor__pointer"><i class="lni lni-grid"></i><span>HACKATHONS</span></a></li>
+                    <li><a href="{% url 'jobs' %}" class=" _3d-pixel-cursor__pointer"><i class="lni lni-bullhorn"></i><span>JOBS</span></a></li>
+                    {% comment %} {% if user.user_type == 'hirer' %} {% endcomment %}
+                    <li><a class="_3d-pixel-cursor__pointer post_buttons" href="{% url 'post_job' %}"><i class="lni "></i><span>Post
+                                Job</span></a></li>
+                    {% comment %} {% endif %} {% endcomment %}
+                    {% comment %} {% if user.user_type == 'hiree' %} {% endcomment %}
+                    <li><a class="_3d-pixel-cursor__pointer post_buttons" href="{% url 'post_achievement' %}"><i class="lni "></i><span>Post
+                                Achievement</span></a></li>
+                    {% comment %} {% endif %} {% endcomment %}
+                </ul>
+            </div>
+
+            <main>
+                <img src="{% static 'assets/community_bar.png' %}" style="margin-left: 15px; margin-right: 15px;"
+                    width="97%" alt="">
+                <div class="page-content">
+                    <div class="main-container">
+                        <h1 class="community_heading">Welcome to the Community Page</h1>
+                        
+                        <!-- Display Frandz -->
+                        <section id="frandz">
+                            <h2>Frandz</h2>
+                            <div class="frandz-list">
+                                {% for frand in frandz %}
+                                    <div class="frand">
+                                        <h3>{{ frand.name }}</h3>
+                                        <p>{{ frand.description }}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>
