@@ -1,0 +1,228 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  .container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    flex-wrap: wrap;
+    overflow: hidden;
+  }
+  .main {
+    height: calc(100% - 50px);
+    display: flex;
+    flex: 1;
+  }
+  .sidebar {
+    height: 78vh;
+    width: 300px;
+    box-sizing: border-box;
+    box-shadow: 0 0 2rem 0 rgb(0 0 0 / 5%);
+    overflow: hidden;
+    transition: width 0.5s ease;
+    background-color: #16002C;
+    
+  }
+  .container.nav-closed .sidebar,
+  .container.nav-closed .header-logo {
+    width: 0;
+  }
+  .sidebar ul {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    /* padding: 5px; */
+  }
+  .sidebar ul li {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+  }
+  .sidebar ul li a {
+    font-family: "Handjet", sans-serif;
+    font-weight: 600;
+    color: #ffffff;
+    border: 2px solid #16002C;
+    border-radius: 12px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    white-space: nowrap;
+    padding: 12px;
+    transition: 0.2s ease-in-out;
+    /* cursor: pointer; */
+  }
+  .sidebar ul li a.active,
+  .sidebar ul li a:hover {
+    /* background: #e8ecef; */
+    border: 2px solid #ffdf00;
+    border-radius: 12px;
+    color: #ffdf00;
+    
+  }
+  .sidebar ul li span {
+    margin-left: 16px;
+    font-size: 30px;
+    font-weight: 600;
+  }
+  .sidebar ul li i {
+    font-size: 18px;
+    color: #111;
+    font-weight: normal;
+  }
+  .header {
+    height: 50px;
+    background: #303f9f;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-basis: 100%;
+  }
+  .sidebar ul li a.active i {
+    color: #ffffff;
+  }
+  .site-logo {
+    height: 32px;
+    width: 32px;
+    min-height: 32px;
+    min-width: 32px;
+    margin: 0 18px 0 15px;
+  }
+  .site-logo path {
+    fill: #fff;
+  }
+  .site-title {
+    color: #fff;
+    font-size: 24px;
+    letter-spacing: 1px;
+    font-weight: 400;
+  }
+  .page-content {
+    padding: 10px 20px;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    flex: 1;
+  }
+  .page-content h1 {
+    /* font-size: 30px; */
+    padding-bottom: 15px;
+    font-weight: 400;
+  }
+  .header-search {
+    height: 100%;
+    align-items: center;
+    display: flex;
+    padding: 0 20px;
+    flex: 1;
+  }
+  .header-search .button-menu {
+    width: 28px;
+    height: 28px;
+    margin-right: 15px;
+    background: none;
+    border: 0;
+    /* cursor: pointer; */
+  }
+  .header-logo {
+    display: flex;
+    align-items: center;
+    width: 220px;
+    overflow: hidden;
+    transition: width 0.5s ease;
+  }
+  .header-search input[type="search"] {
+    height: 100%;
+    width: 300px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 100;
+    background: none;
+    border: none;
+    color: #fff;
+  }
+  .header-search input[type="search"]:focus {
+    outline: none;
+  }
+  .header-search input[type="search"]::placeholder {
+    color: #ccc;
+  }
+  .header-search .button-menu:focus {
+    outline: none;
+    border: none;
+  }
+  .header-search .button-menu svg path {
+    fill: #fff;
+  }
+  @media screen and (max-width: 991px) {
+    .page-content {
+      width: 100vw;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .header-logo {
+      display: none;
+    }
+  }
+  .main-container{
+    background-color: #131313;
+    padding: 30px;
+    padding-left: 40px;
+    height: 42vh;
+    border-radius: 12px;
+    border: 2px solid #ffdf00;
+    width: 65%;
+    margin-top: 20px;
+  }
+  .side-container{
+    background-color: #131313;
+    padding: 30px;
+    padding-left: 40px;
+    height: 42vh;
+    border-radius: 12px;
+    margin: 12px;
+    margin-left: 16px;
+    border: 2px solid #ffdf00;
+    /* width: 5%; */
+    margin-top: 20px;
+  }
+  .community_heading{
+    color: #ffdf00;
+    font-family: "Handjet", sans-serif;
+  }
+  .Available_Jobs > h2{
+    background-color: #000000;
+    font-size: 18px;
+    padding: 15px;
+    border-radius: 12px;
+    border: 2px solid #ffdd002b;
+    font-family: "Poppins", sans-serif;
+  }
+  .job_description{
+    padding-bottom: 11px;
+  }
+  .job_description>h3{
+    font-size: 20px;
+    padding: 8px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    /* background-color: #303f9e; */
+    text-decoration: none;
+  }
+  .job_description>p{
+    padding: 8px;
+    padding-bottom: 4px;
+    font-family: "Poppins", sans-serif;
+
+  }
+  .job>li{
+    text-decoration: none;
+  }
+  .post_buttons{
+    background-color: #ffdf00 !important;
+    color: #131313 !important;
+  }

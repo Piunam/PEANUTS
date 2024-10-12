@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap');
+body {
+    /* background-color: #3b006e; */
+    background:url("../static/assets/background.png");
+    background-size: cover;
+    /* font-family: 'Press Start 2P', cursive; */
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 50px;
+    background-color: #16002C;
+}
+.logo {
+    display: flex;
+    font-family: "Handjet", sans-serif;
+    color: #ffdf00;
+    font-size: 60px;
+}
+.logo_img{
+    width: 20%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.profile_img{
+    width: 70px;
+    position: absolute;
+    right: 150px;
+    width: 60px;
+    top: 10px;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+}
+
+nav ul li a {
+    color: #ffdf00;
+    text-decoration: none;
+    font-size: 35px;
+    font-family: "Handjet", sans-serif;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+nav ul li a:hover{
+    color: white;
+}
+
+.sign-up {
+    background-color: #ccc;
+    border: none;
+    /* padding: 10px 20px; */
+    font-size: 30px;
+    cursor: pointer;
+    font-family: "Handjet", sans-serif;
+}
+
+.search-section {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.search-bar {
+    width: 50%;
+    padding: 20px;
+    font-size: 1em;
+    border: 2px solid #ff235a;
+    background-color: #ffffff;
+    border-radius: 12px;
+    color: #000000;
+}
+
+.search-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: #242424;
+    border: 2px solid white;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+.search-button:hover{
+    background-color: white;
+    color: #111;
+}
+
+.buttons-section {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.buttons-section button {
+    padding: 10px 20px;
+    background-color: #ff235a;
+    transition: 0.2s ease-in-out;
+    padding: 18px;
+    border: 2px solid white;
+    border-radius: 12px;
+    box-shadow: 3px 3px 0px white;
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer;
+    font-size: 1em;
+    cursor: pointer;
+}
+.buttons-section button:hover{
+    background-color: white;
+    color: #ff235a;
+    border: 2px solid #ff235a;
+    box-shadow: 3px 3px 0px #ff235a;
+}
+
+.main-content {
+    display: flex;
+    /* justify-content: space-around; */
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.player-stats {
+    background-color: #2a0047;
+    padding: 20px;
+    border-radius: 10px;
+    width: 25%;
+    border: 2px solid white;
+    font-family:'Courier New', Courier, monospace;
+}
+.player-stats>h2{
+    font-family: "Handjet", sans-serif;
+    font-size: 30px;
+    letter-spacing: 2px;
+    
+}
+.upcoming-events{
+    border: 2px solid #ffdf00;
+    background-color: #181818;
+    padding: 20px;
+    border-radius: 10px;
+    width: 25%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-right: 90px;
+}
+.upcoming-events>h2{
+    font-family: "Handjet", sans-serif;
+    font-size: 30px;
+}
+.character {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+}
+.question{
+    font-weight: 800;
+    font-size: 40px;
+}
+
+h2 {
+    color: #ffdf00;
+    margin-bottom: 10px;
+}
+
+.event-description {
+    background-color: #111;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.main_nav{
+    margin-right: 100px;
+}
+
+
+/* COMMUNITY */
